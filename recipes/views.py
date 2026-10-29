@@ -38,7 +38,15 @@ def recipe(request, id):
     })
 
 def search(request):
-    return render(request, 'recipes/pages/search.html')
+    search_term = request.GET.get('q', '').strip()
+
+    if not search_term:
+        raise Http404()
+    
+    return render(request, 'recipes/pages/search.html', {
+        'page_title': f'Search for "{search_term}" |',
+
+    })
 
 
 
